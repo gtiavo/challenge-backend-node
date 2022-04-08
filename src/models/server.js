@@ -1,6 +1,7 @@
 const express = require('express'),
       cors    = require('cors'),
-      morgan = require('morgan');
+      db      = require('../db/connections'),
+      morgan  = require('morgan');
 
 class Server {
   constructor() {
@@ -8,15 +9,26 @@ class Server {
     this.port = process.env.PORT;
 
     //path de las rutas
-    this.path = "/api";
+    this.path = {
+      api: "/api",
+      auth: "/auth"
+    };
 
-    this.dbConection();
+    this.dbConnection();
     this.middleware();
     this.routes();
   }
 
   //DataBase
-  dbConection() {}
+   //Coneccion a la DB
+   async dbConnection() {
+    try {
+       await db.authenticate();
+       console.log('Database online'); 
+    } catch (error) {
+        throw new Error( error )
+    }
+}
 
   //middleware
   middleware() {
@@ -35,7 +47,8 @@ class Server {
 
   //Rutas
   routes() {
-    this.app.use(this.path, require("../routes"));
+    // this.app.use(this.path.api, require("../routes"));
+    this.app.use(this.path.auth, require("../routes"));
   }
 
   //Escuchando puerto

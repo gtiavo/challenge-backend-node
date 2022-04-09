@@ -10,7 +10,7 @@ class Server {
 
     //path de las rutas
     this.path = {
-      api: "/api",
+      api: "/",
       auth: "/auth"
     };
 
@@ -47,7 +47,7 @@ class Server {
 
   //Rutas
   routes() {
-    // this.app.use(this.path.api, require("../routes"));
+    this.app.use(this.path.api, require("../routes/api"));
     this.app.use(this.path.auth, require("../routes"));
   }
 

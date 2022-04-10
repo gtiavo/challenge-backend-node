@@ -1,6 +1,7 @@
+//Modulos requeridos:
 const { validationResult } = require("express-validator");
 
-
+//middleware de ruta, validacion de campos requeridos
 const validarCampos = (req, res, next) => {
 
     const errors = validationResult(req);

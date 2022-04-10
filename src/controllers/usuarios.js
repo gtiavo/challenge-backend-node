@@ -1,20 +1,21 @@
+//Modulos requeridos:
 const { request, response } = require("express"),
-      bcrypt                = require('bcryptjs'),
-      {Usuarios}            = require('../models');
+                     bcrypt = require("bcryptjs"),
+               { Usuarios } = require("../models");
 
 
 
-const createUsuario = async(req = request, res = response) => {
-
+//Controladores:
+//Creacion y registro de usuarios en DB:
+const createUsuario = async (req = request, res = response) => {
   const { nombre, apellido, email, password } = req.body;
 
   try {
-
     const usuario = new Usuarios({ nombre, apellido, email, password });
-   
+
     //Encriptar la contraseña
     const salt = bcrypt.genSaltSync();
-    usuario.password = bcrypt.hashSync( password, salt );
+    usuario.password = bcrypt.hashSync(password, salt);
 
     //Guardar en DB
     await usuario.save();
@@ -23,12 +24,13 @@ const createUsuario = async(req = request, res = response) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      msg: "comuniquese con el adminitrador"
+      msg: "comuniquese con el adminitrador",
     });
   }
 };
 
-const updateUsuario = async(req = request, res = response) => {
+//Actualizacion de usuario y carga en DB
+const updateUsuario = async (req = request, res = response) => {
   const { id } = req.params;
   const { password, ...rest } = req.body;
 
@@ -41,15 +43,15 @@ const updateUsuario = async(req = request, res = response) => {
       });
     }
 
-    if( password ) {
+    if (password) {
       //Encriptar la contraseña
-     const salt = bcrypt.genSaltSync();
-     rest.password = bcrypt.hashSync( password, salt );
-     }
+      const salt = bcrypt.genSaltSync();
+      rest.password = bcrypt.hashSync(password, salt);
+    }
 
-    usuario.update( rest );
+    usuario.update(rest);
     res.status(201).json({
-      usuario
+      usuario,
     });
   } catch (error) {
     console.log(error);
@@ -59,7 +61,8 @@ const updateUsuario = async(req = request, res = response) => {
   }
 };
 
-const deleteUsuario = async(req = request, res = response) => {
+//Eliminación de usuario de  la DB
+const deleteUsuario = async (req = request, res = response) => {
   const { id } = req.params;
 
   try {

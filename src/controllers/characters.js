@@ -1,17 +1,34 @@
+//Modulos requeridos:
 const { request, response } = require("express"),
              { Personajes } = require("../models");
 
+//Controladores:
+//Listado de todos los personajes
 const getCharacters = async (req = request, res = response) => {
   try {
-    const personajes = await Personajes.findAll();
+    const personajes = await Personajes.findAll({
+      include: [
+        {association: 'pelicula'}
+      ]
+    });
+
+
     const listPersonajes = personajes.map((items) => ({
       nombre: items.nombre,
       imagen: items.imagen,
+      detail: {
+        edad: items.edad,
+        peso: items.peso,
+        historia: items.historia,
+        films:{
+          titulos: items.pelicula.map( peli =>  peli.titulo )
+        } 
+      }
     }));
 
+
     res.json({
-      msg: "getPersonajes",
-      personajes: listPersonajes,
+      characters: listPersonajes
     });
   } catch (error) {
     console.log(error);
@@ -21,6 +38,7 @@ const getCharacters = async (req = request, res = response) => {
   }
 };
 
+//Creacion y registro de personajes en DB:
 const createCharacter = async (req = request, res = response) => {
   const { imagen, nombre, edad, peso, historia } = req.body;
 
@@ -39,6 +57,7 @@ const createCharacter = async (req = request, res = response) => {
   }
 };
 
+//Actualizacion de usuario y carga en DB
 const updateCharacter = async (req = request, res = response) => {
   const { id } = req.params;
   // const { password, ...rest } = req.body;
@@ -65,6 +84,7 @@ const updateCharacter = async (req = request, res = response) => {
   }
 };
 
+//Eliminación de usuario de  la DB
 const deleteCharacter = async (req = request, res = response) => {
   const { id } = req.params;
 

@@ -1,8 +1,10 @@
+//Modulos requeridos:
 const express = require('express'),
       cors    = require('cors'),
       db      = require('../db/connections'),
       morgan  = require('morgan');
 
+//Modelo del Servidor:
 class Server {
   constructor() {
     this.app = express();

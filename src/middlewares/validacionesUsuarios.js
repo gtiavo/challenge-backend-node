@@ -1,7 +1,9 @@
+//Modulos requeridos:
 const { check }       = require('express-validator'),
       { emailExiste } = require('../helpers'),
       validarCampos   = require('./validarCampos');
 
+//Campos del usuario a validar:      
 const validaciones = [
     check('nombre', 'el nombre es obligatorio').not().isEmpty(), 
     check('apellido', 'el apellido es obligatorio').not().isEmpty(), 
@@ -9,7 +11,6 @@ const validaciones = [
     check('email', 'el email no es valido').isEmail(),
     check('email').custom ( emailExiste ), 
     validarCampos
-]
-
+];
 
 module.exports = validaciones;

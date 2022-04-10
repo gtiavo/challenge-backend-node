@@ -1,8 +1,9 @@
-const { request, response }  = require("express"),
-                        jwt  = require("jsonwebtoken"),
-                { Usuarios } = require("../models");
+//Modulos requeridos:
+const { request, response } = require("express"),
+                        jwt = require("jsonwebtoken"),
+               { Usuarios } = require("../models");
 
-
+//middleware de ruta, validacion de token (JWT)               
 const validarJWT = async (req = request, res = response, next) => {
   const token = req.header("x-token");
 
@@ -26,7 +27,6 @@ const validarJWT = async (req = request, res = response, next) => {
 
     req.usuario = usuario;
     next();
-    
   } catch (error) {
     console.log(error);
     res.status(401).json({

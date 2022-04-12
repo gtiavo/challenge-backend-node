@@ -1,35 +1,82 @@
 //Modulos requeridos:
 const { request, response } = require("express"),
+                     { Op } = require('sequelize'),   
              { Personajes } = require("../models");
 
 //Controladores:
 //Listado de todos los personajes
 const getCharacters = async (req = request, res = response) => {
+
+  const { query } = req;
+  let personajes;
   try {
-    const personajes = await Personajes.findAll({
-      include: [
-        {association: 'pelicula'}
-      ]
-    });
 
-
-    const listPersonajes = personajes.map((items) => ({
-      nombre: items.nombre,
-      imagen: items.imagen,
-      detail: {
-        edad: items.edad,
-        peso: items.peso,
-        historia: items.historia,
-        films:{
-          titulos: items.pelicula.map( peli =>  peli.titulo )
-        } 
+      if( query.name ){
+         personajes = await Personajes.findAll({
+          include: [
+            {association: 'pelicula'}
+          ],
+          where: {
+            nombre: {[Op.like]: `%${query.name}%` }
+          }
+        });
+      }else if(query.age) {
+        const edad = Number(query.age);
+        personajes = await Personajes.findAll({
+          include: [
+            {association: 'pelicula'}
+          ],
+          where: {
+            edad: {[Op.eq]: edad }
+          }
+        });
+      }else if(query.movies) {
+        const id = Number(query.movies)
+        personajes = await Personajes.findAll({
+          include:{ 
+           association: 'pelicula',
+           where: {
+            id: {[Op.eq]: id }
+           }
+          }
+        });
       }
-    }));
+      else {
+        personajes = await Personajes.findAll({
+          include: [
+            {association: 'pelicula'}
+          ]
+        });
+      }
+      
+    
+if( personajes == '' ){
+ res.json({
+  msg:'El elemento solicitado no existe en DB'
+})
+}
+else {
 
+  const listPersonajes = personajes.map((items) => ({
+    nombre: items.nombre,
+    imagen: items.imagen,
+    detail: {
+      edad: items.edad,
+      peso: items.peso,
+      historia: items.historia,
+      films:{
+        titulos: items.pelicula.map( peli =>  peli.titulo )
+      } 
+    }
+  }));
+  
+  
+  res.json({
+    characters: listPersonajes
+  });
+}
+        
 
-    res.json({
-      characters: listPersonajes
-    });
   } catch (error) {
     console.log(error);
     res.status(500).json({

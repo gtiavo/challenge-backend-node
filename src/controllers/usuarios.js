@@ -20,11 +20,18 @@ const createUsuario = async (req = request, res = response) => {
     //Guardar en DB
     await usuario.save();
 
-    res.status(201).json(usuario);
+    res.status(201).json({
+      msg:'ok',
+      usuario,
+      error:false
+    });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({
       msg: "comuniquese con el adminitrador",
+      movies: null,
+      error: true
     });
   }
 };
@@ -40,6 +47,8 @@ const updateUsuario = async (req = request, res = response) => {
     if (!usuario) {
       return res.status(404).json({
         msg: `El usuario con id: -${id}- no existe`,
+        usuario,
+        error:[]
       });
     }
 
@@ -49,14 +58,20 @@ const updateUsuario = async (req = request, res = response) => {
       rest.password = bcrypt.hashSync(password, salt);
     }
 
+    //Actualiza y guarda en DB al usuario solicitado
     usuario.update(rest);
+
     res.status(201).json({
+      msg: 'ok',
       usuario,
+      error:false
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       msg: "comuniquese con el adminitrador",
+      movies: null,
+      error:true
     });
   }
 };
@@ -70,17 +85,24 @@ const deleteUsuario = async (req = request, res = response) => {
     if (!usuario) {
       return res.status(404).json({
         msg: `El usuario con id: -${id}- no existe`,
+        usuario,
+        error:[]
       });
     }
 
     usuario.destroy(id);
     res.status(200).json({
+      msg: 'ok',
       usuario,
+      error:false
     });
   } catch (error) {
     console.log(error);
+    console.log(error);
     res.status(500).json({
       msg: "comuniquese con el adminitrador",
+      movies: null,
+      error:true
     });
   }
 };

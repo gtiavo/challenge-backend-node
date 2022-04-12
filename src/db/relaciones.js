@@ -6,6 +6,7 @@ const { Generos } = require('../models'),
 
 
 //Relaciones:
+//Peliculas - Personajes
 Personajes.belongsToMany( Peliculas, {
     as: 'pelicula',
     through: 'peliculas-personajes',
@@ -19,5 +20,23 @@ Peliculas.belongsToMany( Personajes, {
     through: 'peliculas-personajes',
     foreignKey:  'peliculaId',
     otherKey: 'personajeId',
+    timestamps: false
+} );
+
+
+//peliculas - Generos
+Generos.belongsToMany( Peliculas, {
+    as: 'pelicula',
+    through: 'peliculas-generos',
+    foreignKey: 'generoId',
+    otherKey: 'peliculaId',
+    timestamps: false
+} ); 
+
+Peliculas.belongsToMany( Generos, {
+    as: 'genero',
+    through: 'peliculas-generos',
+    foreignKey:  'peliculaId',
+    otherKey: 'generoId',
     timestamps: false
 } );

@@ -1,7 +1,7 @@
 //Modulos requeridos:
 const { request, response } = require("express"),
                      { Op } = require("sequelize"),
-              { Peliculas } = require("../models");
+{ Peliculas, PeliculasPersonajes } = require("../models");
 
 //Controladores:
 //Listado de las peliculas
@@ -110,7 +110,7 @@ const createMovie = async (req = request, res = response) => {
 //Actualizacion de usuario y carga en DB
 const updateMovie = async (req = request, res = response) => {
   const { id } = req.params;
-  // const { peliculaId, personajeId, ...rest } = req.body;
+  // const { personajeId, ...rest } = req.body;
   const { body } = req;
 
   try {
@@ -123,6 +123,8 @@ const updateMovie = async (req = request, res = response) => {
         error: []
       });
     }
+
+   
 
     //Actualiza y guarda en DB la pelicula solicitada
     pelicula.update(body);

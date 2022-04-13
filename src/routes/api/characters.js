@@ -19,7 +19,7 @@ router.use(validarJWT);
 //Listado de personajes
 router.get('/', getCharacters);
 
-//CRUD
+//CRUD de personajes
 router.post('/', createCharacter);
 router.put('/:id', updateCharacter);
 router.delete('/:id', deleteCharacter);

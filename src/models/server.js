@@ -1,8 +1,9 @@
 //Modulos requeridos:
-const express = require('express'),
-      cors    = require('cors'),
-      db      = require('../db/connections'),
-      morgan  = require('morgan');
+const express    = require('express'),
+      cors       = require('cors'),
+      fileUpload = require('express-fileupload'),
+      db         = require('../db/connections'),
+      morgan     = require('morgan');
 
 //Modelo del Servidor:
 class Server {
@@ -45,6 +46,13 @@ class Server {
 
     //static
     this.app.use(express.static("src/public"));
+
+     //Fileupload - Carga de archivos
+     this.app.use(fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/',
+      // createParentPath: true
+  }));
   }
 
   //Rutas

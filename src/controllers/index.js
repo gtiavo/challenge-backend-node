@@ -4,6 +4,7 @@ const usuarios            = require('./usuarios'),
       characters          = require('./characters'),
       movies              = require('./movies'),
       genres              = require('./genres'),
+      uploads             = require('./uploads'),
       peliculasRelaciones = require('./peliculasRelaciones');
 
 
@@ -14,5 +15,6 @@ module.exports = {
     characters,
     movies,
     genres,
+    uploads,
     peliculasRelaciones
 }

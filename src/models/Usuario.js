@@ -30,4 +30,5 @@ const Usuario = db.define( 'Usuarios', {
     timestamps: false,
   }); 
   
+  
 module.exports = Usuario;  

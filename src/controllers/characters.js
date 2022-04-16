@@ -51,14 +51,17 @@ const getCharacters = async (req = request, res = response) => {
       });
     } else {
       const listPersonajes = personajes.map((items) => ({
-        nombre: items.nombre,
-        imagen: items.imagen,
+        name: items.nombre,
+        image: items.imagen,
         detail: {
-          edad: items.edad,
-          peso: items.peso,
-          historia: items.historia,
+          id: items.id,
+          name: items.nombre,
+          image: items.imagen,
+          age: items.edad,
+          weight: items.peso,
+          history: items.historia,
           films: {
-            titulos: items.pelicula.map((peli) => peli.titulo),
+            titles: items.pelicula?.map((peli) => peli.titulo),
           },
         },
       }));
@@ -73,7 +76,57 @@ const getCharacters = async (req = request, res = response) => {
     console.log(error);
     res.status(500).json({
       msg: "comuniquese con el adminitrador",
-      movies: null,
+      characters: null,
+      error:true
+    });
+  }
+};
+
+//Solicitar un personaje
+const getCharacter = async (req = request, res = response) => {
+ 
+  const { id } = req.params
+
+  try {
+
+    const personaje = await Personajes.findByPk( id, {include: [{ association: "pelicula" }]} );
+
+    if( !personaje ) {
+      return  res.status(400).json({
+        msg: "El elemento solicitado no existe en DB",
+        personaje: [],
+        error:[]
+      });
+    }
+
+    const solicitado = {
+      name: personaje.nombre,
+      image: personaje.imagen,
+      detail: {
+        id: personaje.id,
+        name: personaje.nombre,
+        image: personaje.imagen,
+        age: personaje.edad,
+        weight: personaje.peso,
+        history: personaje.historia,
+        films: {
+          titles: personaje.pelicula?.map((peli) => peli.titulo),
+        },
+      }
+    }
+    
+
+    
+    res.json({
+      msg:'ok',
+      characters: solicitado,
+      error: false
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "comuniquese con el adminitrador",
+      characters: null,
       error:true
     });
   }
@@ -91,14 +144,14 @@ const createCharacter = async (req = request, res = response) => {
 
     res.status(201).json({
       msg:'ok',
-      personaje,
+      characters: personaje,
       error: false
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       msg: "comuniquese con el adminitrador",
-      movies: null,
+      characters: null,
       error:true
     });
   }
@@ -116,7 +169,7 @@ const updateCharacter = async (req = request, res = response) => {
     if (!personaje) {
       return res.status(404).json({
         msg: `El personaje con id: -${id}- no existe`,
-        personaje,
+        characters: personaje,
         error:[]
       });
     }
@@ -126,14 +179,14 @@ const updateCharacter = async (req = request, res = response) => {
 
     res.status(201).json({
       msg:'ok',
-      personaje,
+      characters: personaje,
       error: false
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       msg: "comuniquese con el adminitrador",
-      movies: null,
+      characters: null,
       error:true
     });
   }
@@ -148,7 +201,7 @@ const deleteCharacter = async (req = request, res = response) => {
     if (!personaje) {
       return res.status(404).json({
         msg: `El personaje con id: -${id}- no existe`,
-        personaje,
+        characters: personaje,
         error:[]
       });
     }
@@ -157,14 +210,14 @@ const deleteCharacter = async (req = request, res = response) => {
     personaje.destroy(id);
     res.status(200).json({
       msg:'ok',
-      personaje,
+      characters: personaje,
       error: false
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       msg: "comuniquese con el adminitrador",
-      movies: null,
+      characters: null,
       error:true
     });
   }
@@ -172,6 +225,7 @@ const deleteCharacter = async (req = request, res = response) => {
 
 module.exports = {
   getCharacters,
+  getCharacter,
   createCharacter,
   updateCharacter,
   deleteCharacter,

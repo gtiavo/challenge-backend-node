@@ -30,5 +30,11 @@ const Usuario = db.define( 'Usuarios', {
     timestamps: false,
   }); 
   
+  Usuario.prototype.toJSON =  function () {
+    let values = Object.assign({}, this.get());
+  
+    delete values.password;
+    return values;
+  }
   
 module.exports = Usuario;  

@@ -14,6 +14,8 @@ const emailExiste = async (correo) => {
   }
 };
 
+//validar las colecciones para la
+//carga de archivos
 const coleccionespermitidas = ( coleccion = '', colecciones = [] ) => {
   const incluida = colecciones.includes( coleccion);
   if( !incluida ) {

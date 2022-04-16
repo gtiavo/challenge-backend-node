@@ -7,17 +7,17 @@
 const router = Router();
 
 //Desestructuración:
-//Characters
+//Peliculas
 const { 
 createMovie, deleteMovie,
-getMovies, updateMovie
+getMovies, updateMovie, getMovie
 } = movies;
 
 //peliculasRelaciones
 const {
     createRegister, deleteRegisterPersonaje,
      deleteRegisterGenero, getRegisters
-    } = peliculasRelaciones
+    } = peliculasRelaciones;
 
 //Middleware de ruta - validacion de token
 router.use(validarJWT);
@@ -25,6 +25,10 @@ router.use(validarJWT);
 //Rutas:
 //Listado de películas
 router.get('/', getMovies);
+//Solicitar una película
+router.get('/:id', getMovie);
+
+
 
 //CRUD de películas
 router.post('/', createMovie);
@@ -33,15 +37,12 @@ router.delete('/:id', deleteMovie);
 
 //Creacion de registros asociados
 router.post('/asociados', createRegister);
-//Borrado de registros
+//Borrado de registros asociados
 router.delete('/asociados/personaje/:id', deleteRegisterPersonaje);
 router.delete('/asociados/genero/:id', deleteRegisterGenero);
 
 //Listado de registro de relaciones
 router.get('/asociados', getRegisters);
-
-
-
 
 
 

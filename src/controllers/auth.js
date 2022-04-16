@@ -14,7 +14,7 @@ const login = async (req = request, res = response) => {
     const usuario = await Usuarios.findOne({
       where: {
         email: email,
-      },
+      }
     });
     if (!usuario) {
       return res.status(400).json({
@@ -38,6 +38,7 @@ const login = async (req = request, res = response) => {
     // Generar el JWT
     const token = await generarJWT(usuario.id);
 
+  
   
     res.json({
       msg:'ok',

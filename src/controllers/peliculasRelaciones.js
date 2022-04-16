@@ -10,21 +10,32 @@ const createRegister = async (req = request, res = response) => {
       const registro = new PeliculasPersonajes({ peliculaId, personajeId });
       await registro.save();
       return res.json({
+        msg: 'ok',
         registro,
+        error: null
       });
     } else if (generoId) {
       const registro = new PeliculasGeneros({ peliculaId, generoId });
       await registro.save();
       return res.json({
+        msg: 'ok',
         registro,
+        error: null
       });
     } else {
       return res.json({
         msg: "Debe completar todos los campos",
+        registro: null,
+        error:[]
       });
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({
+      msg: "comuniquese con el adminitrador",
+      registro: null,
+      error:error
+    });
   }
 };
 
@@ -34,9 +45,18 @@ const deleteRegisterPersonaje = async (req = request, res = response) => {
   try {
     const registro = await PeliculasPersonajes.destroy(id);
 
-    res.json(registro);
+    res.json({
+      msg: 'ok',
+      registro,
+      error: null
+    });
   } catch (error) {
     console.log(error);
+    res.status(500).json({
+      msg: "comuniquese con el adminitrador",
+      registro: null,
+      error:error
+    });
   }
 };
 
@@ -46,9 +66,18 @@ const deleteRegisterGenero = async (req = request, res = response) => {
   try {
     const registro = await PeliculasGeneros.destroy(id);
 
-    res.json(registro);
+    res.json({
+      msg: 'ok',
+      registro,
+      error: null
+    });
   } catch (error) {
     console.log(error);
+    res.status(500).json({
+      msg: "comuniquese con el adminitrador",
+      registro: null,
+      error:error
+    });
   }
 };
 
@@ -57,8 +86,10 @@ const getRegisters = async (req = request, res = response) => {
   const peliculasPersonajes = await PeliculasPersonajes.findAll();
 
   res.json({
+    msg: 'ok',
     peliculasGeneros,
     peliculasPersonajes,
+    error:error
   });
 };
 

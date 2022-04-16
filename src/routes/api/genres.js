@@ -1,12 +1,12 @@
  //Modulos requeridos:
  const { Router }     = require('express'),
- {validarJWT}   = require('../../middlewares/validar-jwt'),
- { genres } = require('../../controllers');
+       {validarJWT}   = require('../../middlewares/validar-jwt'),
+       { genres }     = require('../../controllers');
 
 //metodo de express
 const router = Router();
 
-//Desestructuración de characters:
+//Desestructuración de generos:
 const { 
 getGenres, createGenre,
 updateGenre, deleteGenre
@@ -16,10 +16,11 @@ updateGenre, deleteGenre
 router.use(validarJWT);
 
 //Rutas:
-//Listado de personajes
+//Listado de genero
 router.get('/', getGenres);
 
-//CRUD de personajes
+
+//CRUD de genero
 router.post('/', createGenre);
 router.put('/:id', updateGenre);
 router.delete('/:id', deleteGenre);

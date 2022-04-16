@@ -1,7 +1,7 @@
 //Modulos requeridos:
 //Modelos de la DB
-const { Generos } = require('../models'),
-      { Peliculas } = require('../models'),
+const { Generos }    = require('../models'),
+      { Peliculas }  = require('../models'),
       { Personajes } = require('../models');
 
 

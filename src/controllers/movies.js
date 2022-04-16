@@ -1,7 +1,7 @@
 //Modulos requeridos:
 const { request, response } = require("express"),
                      { Op } = require("sequelize"),
-{ Peliculas, PeliculasPersonajes } = require("../models");
+{ Peliculas } = require("../models");
 
 //Controladores:
 //Listado de las peliculas
@@ -59,7 +59,7 @@ const getMovies = async (req = request, res = response) => {
           image: items.imagen,
           title: items.titulo,
           createAt: items.createAt,
-          calificacion: items.calificacion,
+          points: items.calificacion,
           characters: items.personaje.map((per) => per.nombre),
           genre: items.genero?.map((gen) => gen.nombre),
         },
@@ -80,6 +80,56 @@ const getMovies = async (req = request, res = response) => {
     });
   }
 };
+
+
+//Solicitar una película
+const getMovie = async (req = request, res = response) => {
+  
+  const { id } = req.params;
+
+  try {
+   
+    const pelicula = await Peliculas.findByPk( id, {include: [{ association: "personaje" }]} );
+
+    if( !pelicula ) {
+      return  res.status(400).json({
+        msg: "El elemento solicitado no existe en DB",
+        pelicula: [],
+        error:[]
+      });
+    }
+
+    const solicitada = {
+      image: pelicula.imagen,
+      title: pelicula.titulo,
+      createAt: pelicula.createAt,
+      detail: {
+        id: pelicula.id,
+        image: pelicula.imagen,
+        title: pelicula.titulo,
+        createAt: pelicula.createAt,
+        points: pelicula.calificacion,
+        characters: pelicula.personaje?.map((per) => per.nombre)
+      }
+    }
+
+      res.status(200).json({
+        msg: 'ok',
+        movies: solicitada,
+        error: false
+      });
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "comuniquese con el adminitrador",
+      movies: null,
+      error:true
+    });
+  }
+};
+
+
 
 //Creacion y registro de peliculas en DB:
 const createMovie = async (req = request, res = response) => {
@@ -178,6 +228,7 @@ const deleteMovie = async (req = request, res = response) => {
 
 module.exports = {
   getMovies,
+  getMovie,
   createMovie,
   updateMovie,
   deleteMovie,

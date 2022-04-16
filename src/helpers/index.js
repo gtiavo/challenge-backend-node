@@ -1,4 +1,5 @@
 const generarJWT  = require('./generar-jwt'),
+      generarMSG  = require('./generar-msg'),
       dbValidator = require('./db-validator');
 
 
@@ -6,5 +7,6 @@ const generarJWT  = require('./generar-jwt'),
 
 module.exports = {
     ...generarJWT,
-    ...dbValidator
+    ...dbValidator,
+    ...generarMSG
 }

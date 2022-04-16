@@ -9,7 +9,8 @@ const router = Router();
 //Desestructuración de characters:
 const { 
   getCharacters, createCharacter,
-   updateCharacter, deleteCharacter 
+   updateCharacter, deleteCharacter,
+   getCharacter 
   } = characters;
 
 //Middleware de ruta - validacion de token
@@ -18,6 +19,9 @@ router.use(validarJWT);
 //Rutas:
 //Listado de personajes
 router.get('/', getCharacters);
+//Solicitar un personaje
+router.get('/:id', getCharacter);
+
 
 //CRUD de personajes
 router.post('/', createCharacter);

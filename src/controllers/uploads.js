@@ -1,9 +1,6 @@
-const path = require('path');
-const fs = require('fs');
+const { request, response } = require('express');
 const cloudinary = require('cloudinary').v2
 cloudinary.config( process.env.CLOUDINARY_URL);
-
-const { request, response } = require('express');
 
 const { Personajes, Generos, Peliculas} = require('../models')
 
@@ -55,7 +52,7 @@ const actualizarImagenClouddinary = async( req = request, res = response) => {
          cloudinary.uploader.destroy( public_id );
     }
 
-    const { tempFilePath } = req.files.archivo;
+  const { tempFilePath } = req.files.archivo;
   const { secure_url } = await  cloudinary.uploader.upload( tempFilePath);
 
     modelo.imagen = secure_url;
@@ -63,7 +60,11 @@ const actualizarImagenClouddinary = async( req = request, res = response) => {
     await modelo.save();
 
 
-    res.json(modelo);
+    res.json({
+        msg: 'ok',
+        modelo,
+        error:error
+    });
 }
 
 

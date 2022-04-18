@@ -10,19 +10,27 @@ const Usuario = db.define( 'Usuarios', {
     },
     nombre : {
         type: DataTypes.STRING(100),
+        allowNull: false
        
     },
     apellido : {
         type: DataTypes.STRING(100),
+        allowNull: false
+
        
     },
     email : {
         type: DataTypes.STRING(100),
+        unique: true,
+        allowNull: false,
+        validate: {
+            isEmail: true
+        }
         
     },
     password : {
         type: DataTypes.STRING(100),
-        
+        allowNull: false
     },
 },
 {

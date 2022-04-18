@@ -10,11 +10,12 @@ const Genero = db.define( 'Generos', {
     },
     nombre : {
         type: DataTypes.STRING(100),
+        allowNull: false
        
     },
     imagen : {
-        type: DataTypes.STRING(100),
-       
+        type: DataTypes.STRING(200),
+        defaultValue: 'public/assets/no-image.jpg' 
     },
     
 },

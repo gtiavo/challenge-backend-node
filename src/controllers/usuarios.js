@@ -28,7 +28,7 @@ const createUsuario = async (req = request, res = response) => {
     await usuario.save();
 
     //Enviar msg de bienvenida
-    await sgMail.send(msg);
+    // await sgMail.send(msg);
     
     res.status(201).json({
       msg:'ok',

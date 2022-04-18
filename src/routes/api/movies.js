@@ -1,6 +1,7 @@
  //Modulos requeridos:
- const { Router }                      = require('express'),
-       {validarJWT}                    = require('../../middlewares/validar-jwt'),
+ const { Router }   = require('express'),
+       {validarJWT, validarCampos} = require('../../middlewares'),
+       { check }    = require('express-validator'),
        { movies, peliculasRelaciones } = require('../../controllers');
 
 //metodo de express
@@ -31,8 +32,14 @@ router.get('/:id', getMovie);
 
 
 //CRUD de películas
-router.post('/', createMovie);
-router.put('/:id', updateMovie);
+router.post('/',[
+   check('titulo', 'El titulo es obligatorio').trim().not().isEmpty(),
+   validarCampos
+], createMovie);
+router.put('/:id',[
+    check('titulo', 'El titulo es obligatorio').trim(),
+    validarCampos
+], updateMovie);
 router.delete('/:id', deleteMovie);
 
 //Creacion de registros asociados

@@ -9,25 +9,24 @@ const Pelicula = db.define( 'Peliculas', {
         primaryKey: true,
     },
     imagen : {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(200),
        
     },
     titulo : {
         type: DataTypes.STRING(100),
+        allowNull: false
        
     },
     createAt : {
         field: 'created_at',
         type: DataTypes.DATE,
+        allowNull: false
         
     },
-    updatedAt : {
-        field: 'updated_at',
-        type: DataTypes.DATE,
-        
-    },
+   
     calificacion: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER(5),
+        allowNull: false
         
     },
 },

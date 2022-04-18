@@ -2,9 +2,8 @@ const { Router } = require('express');
 const { check } = require("express-validator");
 const { uploads } = require("../../controllers");
 const { coleccionespermitidas } = require("../../helpers");
-const validarCampos = require("../../middlewares/validarCampos");
-const {validarArchivoSubir } = require("../../middlewares/validar-archivo");
-const {validarJWT} = require('../../middlewares/validar-jwt');
+const {validarArchivoSubir, validarJWT, validarCampos } = require("../../middlewares");
+
 
 
 

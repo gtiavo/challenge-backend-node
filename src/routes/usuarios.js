@@ -1,7 +1,7 @@
 //Modulos requeridos:
 const { Router }   = require('express'),
-      validaciones = require('../middlewares/validacionesUsuarios'),
-      { usuarios } = require('../controllers');
+      { usuarios } = require('../controllers'),
+{ validacionesPostUsua } = require('../middlewares');
 
 //metodo de express     
 const  router = Router();
@@ -13,9 +13,9 @@ const   { createUsuario, deleteUsuario, updateUsuario } = usuarios;
 //Rutas:
 //Register
 //Crear usuario
-router.post('/', validaciones, createUsuario );
+router.post('/', validacionesPostUsua , createUsuario );
 //Actualizar usuario
-router.put('/:id', updateUsuario );
+router.put('/:id',updateUsuario );
 //Borrar usuario
 router.delete('/:id', deleteUsuario );
 

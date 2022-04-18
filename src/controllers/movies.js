@@ -138,6 +138,14 @@ const createMovie = async (req = request, res = response) => {
   try {
     const pelicula = new Peliculas({ imagen, titulo, createAt, calificacion });
 
+    if( calificacion < 1 || calificacion > 5 ) {
+      return res.json({
+        msg:'La calificaion debe ser entre 1 y 5',
+        movies: null,
+        error: []
+      })
+    }
+
     //Guardar en DB
     await pelicula.save();
 

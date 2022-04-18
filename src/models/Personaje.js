@@ -9,11 +9,12 @@ const Personaje = db.define( 'Personajes', {
         primaryKey: true,
     },
     imagen : {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(200),
        
     },
     nombre : {
         type: DataTypes.STRING(100),
+        allowNull: false
        
     },
     edad : {
@@ -26,6 +27,7 @@ const Personaje = db.define( 'Personajes', {
     },
     historia : {
         type: DataTypes.STRING(200),
+        allowNull: false
         
     },
 },

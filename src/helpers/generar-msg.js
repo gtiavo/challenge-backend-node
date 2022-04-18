@@ -7,21 +7,15 @@ const crearMSG = ( email ) => {
     from: 'victorg.avila@gmail.com', // Change to your verified sender
     subject: 'Bienvenido a mi app, ChallengeNode',
     text: 'Bienvenido a mi app',
-    html: `<article style="border: 1px solid black;
-    width: 50%;
-    font-size: 20px;
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(0, 0, 255, 0.726);
-    color: aliceblue;">
-    Gracias por pertenecer a esta enorme comunidad!!! :D
+    html: `
+    
     <img 
     style="margin-top: 20px;"
     width="50%"
-    src="https://icdn.dtcn.com/image/digitaltrends_es/34-many-wooden-emoticon-or-emoji-face-balls-one-up-front-720x720.jpg"
+    src="https://dpilaser.com/wp-content/uploads/2017/01/Bienvenido.png"
     alt="no se encontro la imagen"
       >
-   </article>`,}
+   `,}
 
    return msg;
   }

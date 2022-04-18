@@ -12,6 +12,7 @@ const PeliculaPersonaje = db.define( 'PeliculasPersonajes', {
     peliculaId : {
         type: DataTypes.INTEGER,
         
+        
     },
     personajeId : {
         type: DataTypes.INTEGER,

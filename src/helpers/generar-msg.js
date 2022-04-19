@@ -10,7 +10,7 @@ const crearMSG = ( email ) => {
     html: `
     
     <img 
-    style="margin-top: 20px;"
+    style="margin: auto; "
     width="50%"
     src="https://dpilaser.com/wp-content/uploads/2017/01/Bienvenido.png"
     alt="no se encontro la imagen"

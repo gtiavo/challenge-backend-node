@@ -1,8 +1,8 @@
  //Modulos requeridos:
  const { Router }     = require('express'),
        { check }      = require('express-validator'),
-       {validarJWT, validarCampos}   = require('../../middlewares'),
        { genres }     = require('../../controllers');
+const {validarJWT, validarCampos} = require('../../middlewares');
 
 //metodo de express
 const router = Router();
@@ -23,12 +23,17 @@ router.get('/', getGenres);
 
 //CRUD de genero
 router.post('/', [
-   check('nombre', 'El nombre es obligatoririo').trim().isLength({min: 3 })
-   .withMessage('El nombre debe de terner mas de 3 caracteres'),
+   check('nombre', 'El nombre es obligatoririo').trim().not().isEmpty(),
+   check('nombre', 'El nombre debe de terner mas de 3 caracteres').isLength({min: 3 }),
    validarCampos  
 ] ,createGenre);
 
-router.put('/:id', updateGenre);
+router.put('/:id',[
+   check('nombre', 'El nombre es obligatoririo').trim().not().isEmpty(),
+   check('nombre', 'El nombre debe de terner mas de 3 caracteres').isLength({min: 3 }),
+   validarCampos  
+], updateGenre);
+
 router.delete('/:id', deleteGenre);
 
 

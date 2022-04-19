@@ -34,10 +34,14 @@ router.get('/:id', getMovie);
 //CRUD de películas
 router.post('/',[
    check('titulo', 'El titulo es obligatorio').trim().not().isEmpty(),
+   check('createAt', 'La fecha de cracion es obligatorio').not().isEmpty(),
+   check('calificacion', 'La calificación es obligatorio').not().isEmpty(),
    validarCampos
 ], createMovie);
 router.put('/:id',[
-    check('titulo', 'El titulo es obligatorio').trim(),
+    check('titulo', 'El titulo es obligatorio').trim().not().isEmpty(),
+    check('createAt', 'La fecha de cracion es obligatorio').not().isEmpty(),
+    check('calificacion', 'La calificación es obligatorio').not().isEmpty(),
     validarCampos
 ], updateMovie);
 router.delete('/:id', deleteMovie);
@@ -49,7 +53,7 @@ router.delete('/asociados/personaje/:id', deleteRegisterPersonaje);
 router.delete('/asociados/genero/:id', deleteRegisterGenero);
 
 //Listado de registro de relaciones
-router.get('/asociados', getRegisters);
+router.get('/asociados/registros', getRegisters);
 
 
 

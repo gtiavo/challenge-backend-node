@@ -89,7 +89,7 @@ const getRegisters = async (req = request, res = response) => {
     msg: 'ok',
     peliculasGeneros,
     peliculasPersonajes,
-    error:error
+    error:null
   });
 };
 

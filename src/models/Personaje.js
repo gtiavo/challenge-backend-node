@@ -10,6 +10,7 @@ const Personaje = db.define( 'Personajes', {
     },
     imagen : {
         type: DataTypes.STRING(200),
+        defaultValue: 'public/assets/no-image.jpg' 
        
     },
     nombre : {

@@ -4,7 +4,7 @@ const { check }       = require('express-validator'),
       validarCampos   = require('./validarCampos');
 
 //Campos del usuario a validar:      
-const validacionesPostUsua = [
+const validacionesUsuario = [
     check('nombre', 'El nombre es obligatorio y debe tener por lo menos 3 caracteres').trim().not().isEmpty().isLength({min:3}), 
     check('apellido', 'El apellido es obligatorio y debe tener por lo  menos 3 caracteres').trim().not().isEmpty().isLength({min:3}), 
     check('password', 'El password debe de tener mas de 6 caracteres').trim().isLength({min:6}), 
@@ -17,5 +17,5 @@ const validacionesPostUsua = [
 
 
 module.exports = {
-    validacionesPostUsua
+    validacionesUsuario
 };

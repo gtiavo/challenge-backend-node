@@ -1,7 +1,7 @@
  //Modulos requeridos:
 const { Router }     = require('express'),
-      {validarJWT, validacionesPostPer }   = require('../../middlewares'),
       { characters } = require('../../controllers');
+const {validarJWT, validacionesPersonaje }  = require('../../middlewares');
 
 //metodo de express
 const router = Router();
@@ -24,8 +24,8 @@ router.get('/:id', getCharacter);
 
 
 //CRUD de personajes
-router.post('/',validacionesPostPer ,createCharacter);
-router.put('/:id', updateCharacter);
+router.post('/',validacionesPersonaje ,createCharacter);
+router.put('/:id', validacionesPersonaje , updateCharacter);
 router.delete('/:id', deleteCharacter);
 
 

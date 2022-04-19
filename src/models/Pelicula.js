@@ -10,6 +10,7 @@ const Pelicula = db.define( 'Peliculas', {
     },
     imagen : {
         type: DataTypes.STRING(200),
+        defaultValue: 'public/assets/no-image.jpg' 
        
     },
     titulo : {

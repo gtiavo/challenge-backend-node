@@ -27,7 +27,7 @@ const Personaje = db.define( 'Personajes', {
         
     },
     historia : {
-        type: DataTypes.STRING(200),
+        type: DataTypes.STRING,
         allowNull: false
         
     },

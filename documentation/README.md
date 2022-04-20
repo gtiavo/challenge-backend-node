@@ -1,0 +1,1 @@
+# Informacion sobre el challenge en general
